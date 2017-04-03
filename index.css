@@ -1,3 +1,8 @@
+h1 {
+
+  text-align: center;
+}
+
 line {
   stroke: #999;
   stroke-opacity: 0.6;
@@ -14,7 +19,12 @@ svg {
   /*margin-top: 40px;
   margin-left: auto;
   margin-right: auto;*/
-  background: green;
+  background: steelblue;
+}
+
+.graph {
+  display: block;
+  margin-left: 250px;
 }
 
 
@@ -28,12 +38,16 @@ img:hover {
 }
 
 div.tooltip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     text-align: center;
-    width: 60px;
-    height: 30px;
+    width: 62px;
+    height: 42px;
     padding: 2px;
     font: 12px sans-serif;
+    font-weight: bold;
     background: lightsteelblue;
     border: 0px;
     border-radius: 8px;

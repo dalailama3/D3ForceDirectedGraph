@@ -10,7 +10,7 @@ $("document").ready(function () {
       const height = 800
       const radius = 6
       const forceCharge = -100;
-      const linkDistance = 60;
+      const linkDistance = 50;
 
 
       var force = d3.layout.force()
