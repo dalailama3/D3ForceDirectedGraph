@@ -12,6 +12,7 @@ $("document").ready(function () {
       const forceCharge = -100;
       const linkDistance = 60;
 
+
       var force = d3.layout.force()
          .size([width, height])
          .nodes(nodes) //add nodes
@@ -22,7 +23,13 @@ $("document").ready(function () {
          .start();
 
        var graph = d3.select('.graph')
-
+       //
+      //  var tip = d3.tip()
+      //   .attr('class', 'd3-tip')
+      //   .offset([-10, 0])
+      //   .html(function(d) {
+      //     return "<span>" + d.country + "</span>"
+      //   })
         var svg = graph.append("svg")
           .attr("width", width)
           .attr("height", height)
@@ -34,7 +41,12 @@ $("document").ready(function () {
           .append('line')
           .attr('class', 'link');
 
-
+          var tooltip = d3.select("body")
+        	.append("div")
+          	// .style("position", "absolute")
+          	// .style("z-index", "10")
+          	.style("visibility", "hidden")
+            .attr("class", "tooltip")
 
          var node = graph.select('.flagbox').selectAll("img")
            .data(force.nodes())
@@ -43,31 +55,23 @@ $("document").ready(function () {
            .attr("class", function (d) {
              return "flag" + " flag-" + d.code;
            })
+           .on("mouseover", function (d) {
+             tooltip.style("visibility", "visible")
+             tooltip.html("<span>" + d.country + "</span>")
+           })
+          	.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+          	.on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
-        //  .attr('r', function (d) {
-        //    return d.weight/5 * 6;
-        //  })
 
        node.append("title")
            .text(function(d) { return d.country; });
-
-      //  var images = node.append("svg:image")
-       //
-      //  .attr("xlink:href",  "./flags.png")
-      //   .attr("class", function (d) {
-      //     return "node flag" + " flag-" + d.code;
-      //   })
-      //  .attr("x", function(d) { return -25;})
-      //  .attr("y", function(d) { return -25;})
-      //  .attr("height", 11)
-      //  .attr("width", 16);
 
 
        function tick(e) {
 
          node.attr('cx', function(d) { return d.x = Math.max(radius, Math.min(width - radius, d.x)); })
              .attr('cy', function(d) { return d.y = Math.max(radius, Math.min(height - radius, d.y)); })
-             .call(force.drag);
+             .call(force.drag)
 
          node.style('left', d => (d.x - 8) + "px")
          .style('top', d => (d.y - 5) + "px");
