@@ -6,8 +6,9 @@ $("document").ready(function () {
       var links = data.links
       var nodes = data.nodes
 
-      var width = 900
-      var height = 700
+      const width = 900
+      const height = 700
+      const radius = 6
       const forceCharge = -100;
       const linkDistance = 50;
 
@@ -37,15 +38,15 @@ $("document").ready(function () {
          .data(force.nodes())
          .enter().append('circle')
          .attr('class', 'node')
-         .attr('r', 5);
+         .attr('r', radius);
 
        node.append("title")
            .text(function(d) { return d.country; });
 
        function tick(e) {
 
-         node.attr('cx', function(d) { return d.x; })
-             .attr('cy', function(d) { return d.y; })
+         node.attr('cx', function(d) { return d.x = Math.max(radius, Math.min(width - radius, d.x)); })
+             .attr('cy', function(d) { return d.y = Math.max(radius, Math.min(height - radius, d.y)); })
              .call(force.drag);
 
          link.attr('x1', function(d) { return d.source.x; })
