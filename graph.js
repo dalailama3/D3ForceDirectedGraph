@@ -6,7 +6,7 @@ $("document").ready(function () {
       var links = data.links
       var nodes = data.nodes
 
-      const width = 900
+      const width = 800
       const height = 700
       const radius = 6
       const forceCharge = -100;
@@ -38,7 +38,9 @@ $("document").ready(function () {
          .data(force.nodes())
          .enter().append('circle')
          .attr('class', 'node')
-         .attr('r', radius);
+         .attr('r', function (d) {
+           return d.weight * 1.3;
+         })
 
        node.append("title")
            .text(function(d) { return d.country; });
